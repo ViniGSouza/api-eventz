@@ -1,0 +1,83 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserType {
+  NORMAL
+  COMPANY
+
+  @@map("user_type")
+}
+
+model User {
+  id       String   @id @default(uuid()) @db.Uuid
+  name     String
+  email    String   @unique
+  password String
+  type     UserType
+  orders   Order[]
+
+  @@map("user")
+}
+
+model Company {
+  id          String  @id @default(uuid()) @db.Uuid
+  name        String
+  description String
+  imageUrl    String
+  events      Event[]
+
+  @@map("company")
+}
+
+model Event {
+  id          Int        @id @default(autoincrement())
+  name        String
+  companyId   String     @map("company_id") @db.Uuid
+  categoryId  Int        @map("category_id")
+  description String
+  imageUrl    String     @map("image_url")
+  price       Float
+  discount    Float
+  wishlist    Wishlist[]
+
+  company  Company  @relation(fields: [companyId], references: [id])
+  category Category @relation(fields: [categoryId], references: [id])
+  orders   Order[]
+
+  @@map("event")
+}
+
+model Category {
+  id          Int     @id @default(autoincrement())
+  name        String
+  description String
+  imageUrl    String  @map("image_url")
+  events      Event[]
+
+  @@map("category")
+}
+
+model Order {
+  id      String @id @default(uuid()) @db.Uuid
+  userId  String @map("user_id") @db.Uuid
+  eventId Int    @map("event_id")
+
+  user  User  @relation(fields: [userId], references: [id])
+  event Event @relation(fields: [eventId], references: [id])
+
+  @@map("order")
+}
+
+model Wishlist {
+  id     Int     @id @default(autoincrement())
+  userId String  @map("user_id") @db.Uuid
+  events Event[]
+
+  @@map("wishlist")
+}
