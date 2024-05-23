@@ -7,9 +7,10 @@ import { GlobalExceptionFilter } from './resources/filters/global-filter-excepti
 import { ConfigModule } from '@nestjs/config';
 import { EventModule } from './modules/event/event.module';
 import { CategoryModule } from './modules/category/category.module';
+import { CompanyModule } from './modules/company/company.module';
 
 @Module({
-  imports: [UserModule, AuthModule, ConfigModule.forRoot({ isGlobal: true }), EventModule, CategoryModule],
+  imports: [UserModule, AuthModule, ConfigModule.forRoot({ isGlobal: true }), EventModule, CategoryModule, CompanyModule, EventModule],
   providers: [
     {
       provide: APP_FILTER,

@@ -7,15 +7,24 @@ export class UserService {
   constructor(private readonly prisma: PrismaService) {}
   
   async create({ name, email, password, type }: CreateUserDTO) {
-    const user = await this.prisma.user.create({
-      data: {
-        name,
-        email,
-        password,
-        type
+    try {
+      const userExists = await this.findByEmail(email);
+      if (!userExists) {
+        const user = await this.prisma.user.create({
+          data: {
+            name,
+            email,
+            password,
+            type
+          }
+        });
+        return user;
+      } else {
+        throw new Error("Email ja existe");
       }
-    });
-    return user;
+    } catch (error) {
+      throw new Error(`Ocorro um erro, tente novamente:${error}`);
+    }
   }
 
   async findByEmail(email: string) {

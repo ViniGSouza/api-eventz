@@ -12,14 +12,6 @@ export class UserController {
     @Body() {password, ...dataUser}: CreateUserDTO,
     @Body('password', HashPasswordPipe) hashedPassword: string
   ) {
-    const userExists = await this.userService.findByEmail(dataUser.email);
-    if (!userExists) {
-      const user = await this.userService.create(
-        {...dataUser, password: hashedPassword}
-      );
-      return user;
-    } else {
-      throw new Error("Email ja existe");
-    }
+    return this.userService.create({ ...dataUser, password: hashedPassword });
   }
 }
