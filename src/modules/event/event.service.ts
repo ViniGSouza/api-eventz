@@ -4,32 +4,17 @@ import { PrismaService } from 'src/db/prisma.service';
 
 @Injectable()
 export class EventService {
-  create(createEventDto: CreateEventDTO) {
-    return 'This action adds a new event';
-  }
 
   constructor(private readonly prismaService: PrismaService) {}
 
-  async createEvent({
-    name,
-    companyId,
-    categoryId,
-    description,
-    imageUrl,
-    price,
-    discount,
-  }: CreateEventDTO) {
-    const event = await this.prismaService.event.create({
-      data: {
-        name,
-        companyId,
-        categoryId,
-        description,
-        imageUrl,
-        price,
-        discount,
-      },
-    });
-    return event;
+  async create(data: CreateEventDTO) {
+    try {
+      const event = await this.prismaService.event.create({
+        data
+      });
+      return event;
+    } catch (error) {
+      throw `Erro ao criar evento: ${error}`;
+    }
   }
 }
