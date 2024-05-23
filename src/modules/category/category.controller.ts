@@ -11,4 +11,9 @@ export class CategoryController {
     return this.categoryService.create(createCategoryDto);
   }
 
+  @Get()
+  helloCompany() {
+    return 'Hello Company';
+  }
+
 }
