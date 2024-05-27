@@ -1,4 +1,4 @@
-import { Controller, Post, Body} from '@nestjs/common';
+import { Controller, Post, Body, Get } from '@nestjs/common';
 import { CompanyService } from './company.service';
 import { CreateCompanyDTO } from './dto/CreateCompany.dto';
 
@@ -11,4 +11,8 @@ export class CompanyController {
     return this.companyService.create(createCompanyDto);
   }
 
+  @Get()
+  findAll() {
+    return this.companyService.findAll();
+  }
 }

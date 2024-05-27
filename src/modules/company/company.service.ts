@@ -16,4 +16,13 @@ export class CompanyService {
       throw `Erro ao criar uma empresa: ${error}`;
     }
   }
+
+  async findAll() {
+    try {
+      const companies = await this.prismaService.company.findMany();
+      return companies;
+    } catch (error) {
+      throw `Erro ao buscar as empresas: ${error}`;
+    }
+  }
 }
