@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param } from '@nestjs/common';
 import { CompanyService } from './company.service';
 import { CreateCompanyDTO } from './dto/CreateCompany.dto';
 
@@ -14,5 +14,10 @@ export class CompanyController {
   @Get()
   findAll() {
     return this.companyService.findAll();
+  }
+
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.companyService.findOne(id);
   }
 }

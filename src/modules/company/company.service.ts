@@ -25,4 +25,18 @@ export class CompanyService {
       throw `Erro ao buscar as empresas: ${error}`;
     }
   }
+
+  async findOne(id: string) {
+    try {
+      const company = await this.prismaService.company.findUnique({
+        where: { id },
+      });
+      if (!company) {
+        throw `Empresa com id ${id} não encontrada`;
+      }
+      return company;
+    } catch (error) {
+      throw `Erro ao buscar a empresa: ${error}`;
+    }
+  }
 }

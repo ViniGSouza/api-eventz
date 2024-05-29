@@ -24,4 +24,18 @@ export class CategoryService {
       throw `Erro ao buscar as categorias: ${error}`;
     }
   }
+
+  async findOne(id: number) {
+    try {
+      const category = await this.prismaService.category.findUnique({
+        where: { id },
+      });
+      if (!category) {
+        throw `Categoria com id ${id} não encontrada`;
+      }
+      return category;
+    } catch (error) {
+      throw `Erro ao buscar a categoria: ${error}`;
+    }
+  }
 }

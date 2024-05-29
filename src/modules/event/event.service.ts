@@ -24,4 +24,18 @@ export class EventService {
       throw `Erro ao buscar eventos: ${error}`;
     }
   }
+
+  async findOne(id: number) {
+    try {
+      const event = await this.prismaService.event.findUnique({
+        where: { id },
+      });
+      if (!event) {
+        throw `Evento com id ${id} não encontrado`;
+      }
+      return event;
+    } catch (error) {
+      throw `Erro ao buscar o evento: ${error}`;
+    }
+  }
 }

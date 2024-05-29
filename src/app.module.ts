@@ -8,9 +8,19 @@ import { ConfigModule } from '@nestjs/config';
 import { EventModule } from './modules/event/event.module';
 import { CategoryModule } from './modules/category/category.module';
 import { CompanyModule } from './modules/company/company.module';
+import { OrderModule } from './modules/order/order.module';
 
 @Module({
-  imports: [UserModule, AuthModule, ConfigModule.forRoot({ isGlobal: true }), EventModule, CategoryModule, CompanyModule, EventModule],
+  imports: [
+    UserModule,
+    AuthModule,
+    ConfigModule.forRoot({ isGlobal: true }),
+    EventModule,
+    CategoryModule,
+    CompanyModule,
+    EventModule,
+    OrderModule,
+  ],
   providers: [
     {
       provide: APP_FILTER,
