@@ -31,9 +31,6 @@ export class OrderService {
       const order = await this.prismaService.order.findUnique({
         where: { id },
       });
-      if (!order) {
-        throw `Ordem com id ${id} não encontrada`;
-      }
       return order;
     } catch (error) {
       throw `Erro ao buscar a ordem: ${error}`;

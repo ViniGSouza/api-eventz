@@ -31,9 +31,6 @@ export class CompanyService {
       const company = await this.prismaService.company.findUnique({
         where: { id },
       });
-      if (!company) {
-        throw `Empresa com id ${id} não encontrada`;
-      }
       return company;
     } catch (error) {
       throw `Erro ao buscar a empresa: ${error}`;
